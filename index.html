@@ -1,0 +1,139 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>GIVE A TITLE</title>
+
+    <link rel="stylesheet" href="grid-gallery.css" media="all">
+
+    	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+
+    <link rel="stylesheet" type="text/css" href="main2.css"/>
+
+    <link rel="stylesheet" type="text/css" href="gallery.css"/>
+
+    <link rel="stylesheet" type="text/css" href="challenges.css"/>
+
+    <link rel="stylesheet" type="text/css" href="menu.css"/>
+
+
+<style type="text/css">
+
+
+
+.menu > div{
+
+    margin-bottom: 0;
+}
+ .menu > h6{
+
+    margin-top: 0;
+    font-size: 15px;
+ }
+
+
+
+</style>
+</head>
+
+<body>
+
+
+<!-- LAYOUT FOR MENU / BEFORE THE GAME IS PLAYED -->
+<form id="menuForm" >
+
+	<div id="textBoxes">
+
+        <div id="topicDiv" class="inputWithIcon">
+
+            <h4 class="h1-input">Topic</h4>
+            <input class="gallery-input" size="100" id="topic-text" type="text" placeholder="Enter a Topic" autocomplete="off" onkeyup="verify(this)">
+            <i class="fa fa-link fa-lg fa-fw" aria-hidden="true"></i>
+
+        </div>
+
+        <div id="linkbox-and-questionbox">
+    		<div id="linkDiv" class="inputWithIcon">
+
+                <h4 class="h1-input">Image</h4>
+    			<input class="gallery-input" size="100" id="link-text" type="text" placeholder="image link" autocomplete="off" onkeyup="verify(this)" >
+    			<i class="fa fa-link fa-lg fa-fw" aria-hidden="true"></i>
+
+    		</div>
+            <h5>or</h5>
+            <div id="textDiv" class="inputWithIcon">
+
+                <h4 class="h1-input">Question</h4>
+                <input class="gallery-input" size="100" id="text-text" type="text" placeholder="question" autocomplete="off" onkeyup="verify(this)" >
+                <i class="fa fa-question fa-lg fa-fw" aria-hidden="true"></i>
+
+            </div>
+        </div>
+
+		<div id="answerDiv" class="inputWithIcon">
+            
+            <h4 class="h1-input">Answer</h4>
+			<input class="gallery-input" size="100" id="answer-text" type="text" placeholder="answer" autocomplete="off"  onkeyup="verify(this)" >
+			<i class="fa fa-image fa-lg fa-fw" aria-hidden="true"></i>
+
+		</div>
+
+	</div>
+  <input id="addItem" type="submit" name="" value="Add">
+  <input id="play" type="button" name="" value="Play" onclick="playIt()">
+  <input id="clear" type="button" name="" value="Clear All" onclick="clearAll()">
+
+
+
+</form>
+
+
+<!-- LAYOUT FOR IMAGES /GALLERY -->
+  <div class="container" id="container">
+
+
+  </div>
+
+<!-- LAYOUT FOR CHALLENGES -->
+  <form class="hide" id="gameForm" action="https://www.google.com/" method="post">
+    
+    <div id="game">
+
+      <h1 id="title" class="title"></h1>
+
+      <div class="challenge" id="challenge">
+
+        <div id="imgAndH3">
+            <img id="gameImg" src="" width="200" height="200" alt="" value="">
+
+            <h3 id="gameH3" class="statement" id="head"></h3>
+        </div>
+
+        <input type="button" class="buttons" id="button1" value="" onclick="chooseCorrect(this)">
+
+        <input type="button" class="buttons" id="button2" value="" onclick="chooseCorrect(this)">
+
+        <input type="button" class="buttons" id="button3" value="" onclick="chooseCorrect(this)">
+
+        <input type="button" class="buttons" id="button4" value="" onclick="chooseCorrect(this)">
+
+        <div>
+
+          <input id="showAnswerButton" type="button" class="showAnswerButton" value="Show Answer" onclick="showAnswer()">
+
+          <input id="nextButton" type="button" class="nextButton" value="Next" onclick="next()">
+
+          <input id="restartButton" type="button" class="restartButton" value="Restart" onclick="restart()">
+
+        </div>
+      </div>
+
+    </div>
+  </form> 
+  <script type="text/javascript" src="game.js">
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+.hideVisibility{
+
+    visibility: hidden;
+}
+
+.showVisibility{
+
+    visibility: visible;
+}
+
+#restartButton{
+
+    display: block;
+}
+
+
+.hide{
+
+  display: none;
+}
+
+.show{
+
+  display: block;
+}
+
+.correct{
+
+    color: green;
+}
+
+.wrong{
+
+    color: red;
+}
