@@ -2,16 +2,16 @@
 let menuForm = document.getElementById("menuForm");
 
 // GAME FORM
-let gameForm = document.getElementById("gameForm");
+let gameForm = document.getElementById("challengeDiv");
 
 // TEXTBOXES
-let linkTextBox = document.getElementById("link-text");
-let answerTextBox = document.getElementById("answer-text");
+let linkTextBox = document.getElementById("image-input");
+let answerTextBox = document.getElementById("answer-input");
 
 // TOPIC
-let topic = document.getElementById("topic-text");
+let topic = document.getElementById("topic-input");
 
-// CONTAINER FALLERY DIV
+// CONTAINER GALLERY DIV
 let container = document.getElementById("container");
 
 // TO RANDOMLY CHOOSE HOW IT WILL SHOW ON GRID
@@ -23,6 +23,9 @@ let choicesArray = new Array();
 let questionArray = new Array();
 
 let challengeCount = 1;
+let question = 1;
+let correct = 0;
+let wrong = 0;
 
 // IF WE END UP CHANGING H3 AND DIV IN MENU DIV THEN CAHNGE LAST .CHILDREN IN PLAYIT
 // AND CHNAGE FORIN EDIT ITEM
@@ -41,29 +44,29 @@ menuForm.addEventListener("submit", (e)=>{
 // VERIFY INPUTS
 function verify(e){
 
-	let linkTextBox = document.getElementById("link-text");
-	let answerTextBox = document.getElementById("answer-text");
-	let textTextBox = document.getElementById("text-text");
+	let linkTextBox = document.getElementById("image-input");
+	let answerTextBox = document.getElementById("answer-input");
+	let questionTextBox = document.getElementById("question-input");
 
 
-	if( ( linkTextBox.value && textTextBox.value && answerTextBox.value ) || // all field are filled
-	( linkTextBox.value.trim() == "" && textTextBox.value.trim() == "" && answerTextBox.value.trim() == "" ) || // all fields are not filled
+	if( ( linkTextBox.value && questionTextBox.value && answerTextBox.value ) || // all field are filled
+	( linkTextBox.value.trim() == "" && questionTextBox.value.trim() == "" && answerTextBox.value.trim() == "" ) || // all fields are not filled
 
-	( ( linkTextBox.value && answerTextBox.value ) && textTextBox.value.trim() === "" ) || // link and answer is filled but text is not filled
-		( ( textTextBox.value && answerTextBox.value ) && linkTextBox.value.trim() === "" )  ){ // text and answer is filled but link is not filled
+	( ( linkTextBox.value && answerTextBox.value ) && questionTextBox.value.trim() === "" ) || // link and answer is filled but text is not filled
+		( ( questionTextBox.value && answerTextBox.value ) && linkTextBox.value.trim() === "" )  ){ // text and answer is filled but link is not filled
 
 		linkTextBox.setAttribute("class", "gallery-input");
 		answerTextBox.setAttribute("class", "gallery-input");
-		textTextBox.setAttribute("class", "gallery-input");
+		questionTextBox.setAttribute("class", "gallery-input");
 
 	}else if( answerTextBox.value.trim() == "" ){ // entered nothing for answer box
 
 		answerTextBox.className = "dodgerRed"
 
-	}else if( ( linkTextBox.value.trim() == "" && textTextBox.value.trim() == "" ) ){ // entered at answer but link and text ar enot filled
+	}else if( ( linkTextBox.value.trim() == "" && questionTextBox.value.trim() == "" ) ){ // entered at answer but link and text ar enot filled
 
 		linkTextBox.className = "dodgerRed"
-		textTextBox.className = "dodgerRed"
+		questionTextBox.className = "dodgerRed"
 
 	}
 
@@ -76,28 +79,30 @@ function verify(e){
 
 function add(e){
 
-	let linkTextBox = e.target.children[0].children[1].children[0].children[1];
-	let answerTextBox = e.target.children[0].children[2].children[1];
-	let textTextBox = e.target.children[0].children[1].children[2].children[1];
+	let linkTextBox = e.target.children[1].children[0].children[0];
+	let questionTextBox = e.target.children[1].children[1].children[0];
+	let answerTextBox = e.target.children[2].children[0];
 	let content;
 
 
-	if( ( linkTextBox.value.trim() || textTextBox.value.trim() ) && answerTextBox.value.trim() ){
+	if( ( linkTextBox.value.trim() || questionTextBox.value.trim() ) && answerTextBox.value.trim() ){
 
 		let enterImg = "" // if a link is given
 		let enterDiv = "" // if no link is given
 
-		if( linkTextBox.value.trim() == "" ){
+		if( linkTextBox.value.trim() == "" ){ // give it a div as a place holder
 
 			enterDiv = `<div class="gradient"></div>`
 		
 		}else{
 
-			 enterImg = `<img src="${linkTextBox.value.trim()}" alt="${answerTextBox.value.trim()}">`
+			 enterImg = `<img src="${linkTextBox.value.trim()}" alt="${answerTextBox.value.trim()}" />`
 
 		}
 
+		let lastElementOfQuestionBox = questionTextBox.value.trim()[ questionTextBox.value.trim().length - 1 ]; // check is user entered a question mark at end of question
 
+		// displays/fills the contents onto the screen
 		content = `<div class="gallery-container ${ gridPosition[ Math.floor( Math.random() * gridPosition.length ) ] } ${linkTextBox.value.trim() === ""? "gradient":""}">
   						<div class="gallery-item">
     						<div class="image">
@@ -107,7 +112,7 @@ function add(e){
     						</div>
     						<div class="menu">
 
-  								<h6 class="question">${textTextBox.value.trim()}</h6>
+  								<h6 class="question">${ ( ( lastElementOfQuestionBox == "?" || questionTextBox.value.trim() == "" ) ? questionTextBox.value.trim() : ( questionTextBox.value.trim() ) + "?" )}</h6>
     							<div id="answer" class="text">${answerTextBox.value.trim()}</div>
     							<input class="gallery-buttons" type="button" value="Edit Link" onclick="editItem(this)">
     							<input class="gallery-buttons" type="button" value="Edit Question" onclick="editItem(this)">
@@ -122,18 +127,18 @@ function add(e){
 
 		linkTextBox.value ="";
 		answerTextBox.value ="";
-		textTextBox.value = "";
+		questionTextBox.value = "";
 
 		linkTextBox.focus();
 
-	}else if( ( linkTextBox.value.trim() || textTextBox.value.trim() ) && answerTextBox.value === "" ){
+	}else if( ( linkTextBox.value.trim() || questionTextBox.value.trim() ) && answerTextBox.value === "" ){ // enetered nothing for answer box
 
 		answerTextBox.focus();
 
-	}else if( answerTextBox.value == "" && ( linkTextBox.value == "" && textTextBox.value === "" ) ){
+	}else if( answerTextBox.value == "" && ( linkTextBox.value == "" && questionTextBox.value === "" ) ){ // entered nothing for all 3 boxes
 
 		linkTextBox.className = "dodgerRed";
-		textTextBox.className = "dodgerRed"
+		questionTextBox.className = "dodgerRed"
 		answerTextBox.className = "dodgerRed";
 	}
 
@@ -162,9 +167,17 @@ function editItem(e){
 		if( change == null ){ // incase user clicks "cancel" so it doesn't return an empty string
 
 			return;
+
+		}else if(change == "" ){ // user decides to not use an image then show div block with gradient
+
+			editLink.parentElement.insertAdjacentHTML("beforeend", '<div class="gradient"></div>'); // add new div gradient
+			editLink.remove(); // then remove image tag
+			return;
 		}
 
-		editLink.setAttribute("src", change);
+		editLink.parentElement.insertAdjacentHTML("beforeend",`<img src=${change}/>`); // add new div gradient
+		editLink.remove();
+
 
 	}else if( e.getAttribute("value") == "Edit Answer" ){
 
@@ -187,7 +200,7 @@ function editItem(e){
 			return;
 		}
 
-		editQuestion.innerHTML = change;
+		editQuestion.innerHTML = ( ( change.trim()[ change.trim().length -1 ] == "?" ) ?  change.trim() : change.trim() + "?"  ); // adds question mark if none is added
 		editQuestion.setAttribute("alt", change);
 	}
 
@@ -204,9 +217,9 @@ function deleteItem(e){
 
 function playIt(){
 
-	if( container.children.length > 3  ){ // make sure we have at least 4 questions
+	if( container.children.length > 0/*3*/  ){ // make sure we have at least 4 questions
 
-		if( topic.value ){
+		if( topic.value ){ // has to have a topic added
 
 			let title = document.getElementById("title");
 			title.innerHTML = topic.value.trim().toUpperCase();
@@ -235,7 +248,10 @@ function playIt(){
 
 			menuForm.className = "hide";
 			container.className = "hide";
-			gameForm.className = "show";	
+			gameForm.setAttribute("style", "display:flex");
+			// gameForm.className = "show";
+			total.className = "total"; // show tracker
+			info.style.visibility = "hidden"	
 
 			shuffle3(linksArray, choicesArray, questionArray)
 
@@ -244,21 +260,27 @@ function playIt(){
 		}else{
 
 			topic.className = "dodgerRed";
+			topic.focus();
 		}
 
 	}else{
 
-		alert("enter at least 4 items")
+		alert("Enter At Least 4 Items")
 	}
 
 }
 
-function clearAll(){
+function clearAll(){ // clears all content from menu
+
+
+	if( container.children.length > 0 && confirm("Are You Want To Clear All?") ){
 
 		while( container.children[0] ){
 
 			container.children[0].remove();
 		}
+
+	}
 
 }
 
@@ -268,17 +290,20 @@ function clearAll(){
 let fillButtons = new Array();
 let copyChoicesArray = new Array();
 
-// LOAD THE CHALLENGE
+// LOADS THE CHALLENGES ONE BY ONE
 function loadChallenge(chalNum){
+
+ 
+
+   total.innerHTML = ` <br/> ${correct}/${question} <br/> ${percent(correct/( (question <= 1? question : question-1 ) ))}%`    // so it does not 'update' score when loading a new tracker, score is updated until user selects an option
+
 
 	clicks = 0;
 
-    let chalDiv = document.getElementById(`challenge`)
-    let img = document.getElementById(`gameImg`);
-    let gameH3 = document.getElementById(`gameH3`);
+    let img = document.getElementById(`card-image`);
+    let gameH3 = document.getElementById(`question`);
     let picAlt;
     let buttonId;
-
 
     // SETS CHOICE VALUES
    let button;
@@ -315,34 +340,27 @@ function loadChallenge(chalNum){
    // SETS THE IMG ALT AND SRC IF WE NEED TO
    picAlt = choicesArray[chalNum-1];
 
-   if( linksArray[ chalNum - 1 ] == "" ){ // if user did not give an image
+ 	if( linksArray[ chalNum - 1 ] != null ){ // only display image if user gave one
 
-   	img.className = "hideVisibility";
+   	img.style.backgroundImage = `url(${linksArray[chalNum-1]})`;
+   	img.setAttribute("alt", picAlt)
 
-	   Object.assign(img, {
-      	value: picAlt 
-	   });
-
-   }else{
-
-   	img.className = "showVisibility";
-
-	   Object.assign(img, {
-	         src: linksArray[chalNum-1],
-	         alt: picAlt,
-	   });
    }
 
-   if( questionArray[ chalNum-1 ] === "" ){ // if user did not give a question
 
-   	gameH3.className ="hideVisibility";
 
-   }else{
+   if( questionArray[ chalNum-1 ] != "" ){ // only display question if user gave one
 
-   	img.setAttribute("value", picAlt);
+   	img.setAttribute("alt", picAlt)
+   	img.style.backgroundImage = `url("")`;
 
    	gameH3.className ="statement";
    	gameH3.innerHTML = questionArray[ chalNum-1 ];
+
+   }else{ // if not then don't display it
+
+
+   	gameH3.innerHTML = "";
    }
 
 
@@ -352,11 +370,11 @@ function loadChallenge(chalNum){
 // RESET BUTTONS
 function resetButtons(){
 
-	let challenge = document.getElementById("challenge");
+	let button = document.getElementById("card-stats");
 
-	for( x = 1; x < 5; x+=1 ){
+	for( x = 0; x < 4; x+=1 ){
 
-		challenge.children[x].className = "buttons"
+		button.children[x].className = "buttons"
 
 	} 
 }
@@ -365,7 +383,9 @@ function resetButtons(){
 // NEXT
 function next(){
 
-	resetButtons();
+	resetButtons(); // when going to next question / restarting removes green and red styles( "resetting each button")
+
+	question += 1; // increment question count
 
 	let nextButton = document.getElementById("nextButton");
 
@@ -399,28 +419,53 @@ function next(){
 // SHOW ANSWER
 function showAnswer(){
 
-	if( clicks === 0 ){ 
+	let img = document.getElementById("card-image");
+
+	let button;
+
+	if( clicks === 0 ){ // opting to view correct choice( will mark wrong )
 
 		if( confirm("are you sure?") ){ // if the user has not clicked yet and wants to see it
 
-			let img = document.getElementById("gameImg");
-
-			let button;
-
-			for( x = 1; x < 5; x+=1 ){
+			for( x = 1; x < 5; x+=1 ){ // goes through button to select / show correct one
 
 				button = document.getElementById(`button${x}`);
 
 				if( button.getAttribute("value") ===  ( img.getAttribute("alt") || img.getAttribute("value") ) ){
 
-					button.className = "correct"
+					button.className = "correct";
+
+               total.innerHTML = ` <br/> ${correct}/${question} <br/> ${percent(correct/question)}%`
+               wrong+=1;
+               clicks = 1;
+               break;
+
 				}
 			}
 		}
 
-	}
+	}else{
+
+      for(y = 1; y < 5; y += 1){
+
+			button = document.getElementById(`button${y}`);
+
+         if( button.getAttribute("value") ===  ( img.getAttribute("alt") || img.getAttribute("value") ) ){
+
+            /*if( button.classList.contains("correct") && clicks >=1 ){
+
+
+            }*/
+            button.className = "correct"  
+
+            break;
+
+
+         }
+      }
+      clicks = 1 
+   } 
 	
-	clicks = 1;
 
 }
 
@@ -431,16 +476,22 @@ function chooseCorrect(e){
 
 	if( clicks === 0 ){
 
-		let img = document.getElementById("gameImg");
+		let img = document.getElementById("card-image");
 
 
 		if( buttonClicked.getAttribute("value") === ( img.getAttribute("alt") || img.getAttribute("value") ) ){
 
 			buttonClicked.className = "correct"
+			correct += 1;
+         total.innerHTML = ` <br/> ${correct}/${question} <br/> ${percent(correct/question)}%`
+
 
 		}else{
 
 			buttonClicked.className = "wrong";
+			wrong += 1;
+         total.innerHTML = ` <br/> ${correct}/${question} <br/> ${percent(correct/question)}%`
+
 		}
 
 	}
@@ -449,20 +500,41 @@ function chooseCorrect(e){
 
 }
 
+
+function percent(x){ // TURNS SCORE INTO PERCENT
+
+   let value = x
+
+   return ( value * 100 ).toFixed(2)
+}
+
 // RESTART
 function restart(){
 
 	resetButtons();
 
-	menuForm.className = "show";
-	container.className = "container"
-	gameForm.className = "hide";
+	// if(confirm("Are you sure you want to restart?") && restartButton.getAttribute("value") != "End" ){ // when not at the last 
+
+
+
+	// }
+
+	menuForm.className = "menuForm";
+	container.className = "container";
+	gameForm.style.display = "none";
+	// gameForm.className = "hide";
+	info.style.visibility = "visible"	
 
 	linkTextBox.value = "";
 	answerTextBox.value = "";
 
 	challengeCount = 1;
 	clicks = 0;
+	correct = 0;
+	question = 1;
+	wrong = 0;
+	total.className = "hide"; // hides tracker
+
 
 	Object.assign( nextButton, {
 
@@ -521,3 +593,57 @@ function removeDuplicates(newArray, fillButtons, value){
 		}
 	}
 }
+
+
+
+/*    */
+
+
+let toggleCount = 0;
+function darkMode(){ // DARK BACKGROUND
+
+   let body = document.getElementById("body");
+   let info = document.getElementById("info")
+   let h3;
+   let h1 = document.getElementById("title"); 
+   let total = document.getElementById("total"); 
+   let img = document.getElementsByTagName("IMG");
+   let toggle = document.getElementById("toggle");
+/*   toggleCount +=1;
+   body.classList.toggle("darkMode");
+   body.classList.toggle("white")
+   // title.classList.toggle("white");
+   total.classList.toggle("totalDark");
+
+
+   for(x=1; x<=4; x+=1){
+
+      img[x-1].classList.toggle("darkModePicBoxShadow")
+   }*/
+
+      if( toggleCount%2 === 0 ){
+
+      toggle.setAttribute('title', "Dark Mode");
+
+   }else{
+
+      toggle.setAttribute('title', "Light Mode");
+   }
+
+   document.body.classList.toggle("darkMode");
+
+   info.classList.toggle("info-white")
+}
+
+function spin(){
+
+   let title = document.getElementsByTagName("H1")
+   let x = 0;
+
+   // while(x<1){
+
+         title.className = "title"
+      // x+=1
+   // }
+}
+spin();
