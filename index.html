@@ -6,86 +6,114 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>GIVE A TITLE</title>
 
-    <link rel="stylesheet" href="grid-gallery.css" media="all">
 
-    	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+    <!-- ICONS -->
+  	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 
-    <link rel="stylesheet" type="text/css" href="main2.css"/>
 
+    <!-- IMG GALLERY -->
     <link rel="stylesheet" type="text/css" href="gallery.css"/>
 
-    <link rel="stylesheet" type="text/css" href="challenges.css"/>
-
+    <!-- MENU -->
     <link rel="stylesheet" type="text/css" href="menu.css"/>
 
 
-<style type="text/css">
+    <!-- TOGGLE -->
+    <link rel="stylesheet" type="text/css" href="toggle.css"/>
 
 
+    <!-- MODAL -->
+    <link rel="stylesheet" type="text/css" href="modal.css"/>
 
-.menu > div{
-
-    margin-bottom: 0;
-}
- .menu > h6{
-
-    margin-top: 0;
-    font-size: 15px;
- }
+    <!-- CARD -->
+    <link rel="stylesheet" type="text/css" href="card.css">
 
 
-
-</style>
 </head>
 
-<body>
+<body id="body">
 
 
-<!-- LAYOUT FOR MENU / BEFORE THE GAME IS PLAYED -->
-<form id="menuForm" >
+<!-- MODAL AND TOGGLE -->
+  <div id="modal-toggle">
+      <!-- MODAL ICON -->
 
-	<div id="textBoxes">
+  <i id="info" class="fa fa-info-circle" aria-hidden="true" onclick="runModal()" title="How to play"></i>
 
-        <div id="topicDiv" class="inputWithIcon">
+  <!-- TOGGLE BUTTON -->
+  <label id="toggle" class="toggle" title="Dark Mode">
+      <input type="checkbox" onclick="darkMode()">
+      <span class="slider round"></span>
+  </label>
 
-            <h4 class="h1-input">Topic</h4>
-            <input class="gallery-input" size="100" id="topic-text" type="text" placeholder="Enter a Topic" autocomplete="off" onkeyup="verify(this)">
-            <i class="fa fa-link fa-lg fa-fw" aria-hidden="true"></i>
+  </div>
 
+<!-- MENU / INPUT BOXES AND BUTTONS -->
+  <form id="menuForm" class="menuForm">
+
+    <div id="topic-div" class="control block-cube block-input">
+      <input id ="topic-input" name = "topic" type ="user" placeholder = "Topic" autocomplete="off"/><div class="bg-top">
+        <div class="bg-inner"></div>
+      </div>
+      <div class="bg-right">
+        <div class="bg-inner"></div>
+      </div>
+      <div class="bg">
+        <div class="bg-inner"></div>
+      </div>
+    </div>
+
+    <div id="linkbox-and-questionbox" >
+      
+      <div id="image-div" id="image-div" class="control block-cube block-input">
+        <input id ="image-input" name = "image link" type ="user" placeholder = "Image Link" autocomplete="off" />
+        <div class="bg-top">
+          <div class="bg-inner"></div>
         </div>
-
-        <div id="linkbox-and-questionbox">
-    		<div id="linkDiv" class="inputWithIcon">
-
-                <h4 class="h1-input">Image</h4>
-    			<input class="gallery-input" size="100" id="link-text" type="text" placeholder="image link" autocomplete="off" onkeyup="verify(this)" >
-    			<i class="fa fa-link fa-lg fa-fw" aria-hidden="true"></i>
-
-    		</div>
-            <h5>or</h5>
-            <div id="textDiv" class="inputWithIcon">
-
-                <h4 class="h1-input">Question</h4>
-                <input class="gallery-input" size="100" id="text-text" type="text" placeholder="question" autocomplete="off" onkeyup="verify(this)" >
-                <i class="fa fa-question fa-lg fa-fw" aria-hidden="true"></i>
-
-            </div>
+        <div class="bg-right">
+          <div class="bg-inner"></div>
         </div>
+        <div class="bg">
+          <div class="bg-inner"></div>
+        </div>
+      </div>
 
-		<div id="answerDiv" class="inputWithIcon">
-            
-            <h4 class="h1-input">Answer</h4>
-			<input class="gallery-input" size="100" id="answer-text" type="text" placeholder="answer" autocomplete="off"  onkeyup="verify(this)" >
-			<i class="fa fa-image fa-lg fa-fw" aria-hidden="true"></i>
+      <div id="question-div" class="control block-cube block-input">
+        <input id ="question-input" name = "question" type ="user" placeholder = "Question" autocomplete="off"/>
+        <div class="bg-top">
+          <div class="bg-inner"></div>
+        </div>
+        <div class="bg-right">
+          <div class="bg-inner"></div>
+        </div>
+        <div class="bg">
+          <div class="bg-inner"></div>
+        </div>
+      </div>
 
-		</div>
-
-	</div>
-  <input id="addItem" type="submit" name="" value="Add">
-  <input id="play" type="button" name="" value="Play" onclick="playIt()">
-  <input id="clear" type="button" name="" value="Clear All" onclick="clearAll()">
+    </div>
 
 
+    <div id="answer-div" class="control block-cube block-input">
+      <input id ="answer-input" name = "answer" type ="user" placeholder = "Answer" autocomplete="off" />
+      <div class="bg-top">
+        <div class="bg-inner"></div>
+      </div>
+      <div class="bg-right">
+        <div class="bg-inner"></div>
+      </div>
+      <div class="bg">
+        <div class="bg-inner"></div>
+      </div>
+    </div>
+
+    <div class="menu-buttons">
+    
+      <input id="addItem" type="submit" name="" value="Add">
+      <input id="play" type="button" name="" value="Play" onclick="playIt()">
+      <input id="clear" type="button" name="" value="Clear All" onclick="clearAll()">
+
+    </div>
 
 </form>
 
@@ -96,20 +124,61 @@
 
   </div>
 
-<!-- LAYOUT FOR CHALLENGES -->
-  <form class="hide" id="gameForm" action="https://www.google.com/" method="post">
+
+
+  <!-- MODAL -->
+
+  <div id="modalDiv">
+
+    <div id="bodymovin" class="bodymovin">
+
+    <button id="close" name="close">╳</button>
+    <div class="modal">
+        <div class="modal__content">
+              
+              <h1>WELCOME !</h1>
+
+            <p>The rules are simple</p>
+
+            <p><span id="topicModal">Topic</span> : enter the topic of the game</p>
+
+        <p><span id="imageModal">Image</span> : paste any image link to display the image</p>
+          
+          
+        <p><span id="questionModal">Question</span> : enter the question matching the answer</p>
+
+
+        <p><span id="answerModal">Answer</span> : provide the correct answer choice</p>
+
+        <p>* images and questions can be mixed and matched *</p>
+        ( but you must provide at least one, along with the correct choice )
+
+      </div>
+    </div>
+  </div>
+  </div>
+  
+<!-- CARD -->
+
+<div id="challengeDiv" class="hide" style="display:none">
+
+  <div id="tracker" >
     
-    <div id="game">
+    <h1 id="circle">
+      <span id="total" class="total "></span>
+    </h1>
 
-      <h1 id="title" class="title"></h1>
+  </div>
 
-      <div class="challenge" id="challenge">
 
-        <div id="imgAndH3">
-            <img id="gameImg" src="" width="200" height="200" alt="" value="">
-
-            <h3 id="gameH3" class="statement" id="head"></h3>
-        </div>
+    <div class="card">
+      <div id="card-image" class="card-image"></div>
+      <div class="card-text">
+        <span id="title" class="title"></span>
+        <!-- <h2>Post One</h2> -->
+        <p id="question"></p>
+      </div>
+      <div id="card-stats" class="card-stats">
 
         <input type="button" class="buttons" id="button1" value="" onclick="chooseCorrect(this)">
 
@@ -119,7 +188,7 @@
 
         <input type="button" class="buttons" id="button4" value="" onclick="chooseCorrect(this)">
 
-        <div>
+        <div id="choiceButtons">
 
           <input id="showAnswerButton" type="button" class="showAnswerButton" value="Show Answer" onclick="showAnswer()">
 
@@ -128,12 +197,22 @@
           <input id="restartButton" type="button" class="restartButton" value="Restart" onclick="restart()">
 
         </div>
+        </div>
       </div>
-
     </div>
-  </form> 
+
+  </div>
+
+    <!-- for modal -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.14/lottie.min.js"></script>
+
+  <!-- modal script -->
+  <script type="text/javascript" src="modal.js"></script>
+
+  <!-- game script -->
   <script type="text/javascript" src="game.js">
   </script>
+
 </body>
 
 </html>
