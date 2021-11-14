@@ -45,6 +45,12 @@ dropArea.addEventListener("dragleave", ()=>{
 //If user drop File on DropArea
 dropArea.addEventListener("drop", (event)=>{
   event.preventDefault(); //preventing from default behaviour
+  
+  if( dropArea.children.length > 6 ){ // attempting to redrop another image then remove the previous one before you can
+
+    dropArea.children[6].remove();
+  }
+
   file = event.dataTransfer.files[0];
   showFile();
 });
