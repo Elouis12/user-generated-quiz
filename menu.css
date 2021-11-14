@@ -85,8 +85,9 @@ input[type="text"]:focus {
 
 #linkbox-and-questionbox {
 
-  display: flex;
-  gap: -10000000px;
+  /*display: flex;*/
+  margin: auto;
+  /*gap: -10000000px;*/
 
 }
 
@@ -96,57 +97,28 @@ input[type="text"]:focus {
 /*    margin-left: 20px;
     width: 100px;*/
 
+display: flex;
+
 }
 
-#topic-div{
 
-       /*background-color: */lightblue;
-/*    display: block;
-    width: 100px;
-    border-radius: 40px;
-    font-weight: bold;
-    margin: auto;*/
-      /*margin-left: 200px;*/
+#topic-div{
 
 
 
 }
 #image-div{
 
-       /*background-color: */palevioletred;
-/*    display: block;
-    width: 100px;
-    border-radius: 40px;
-    font-weight: bold;
-    margin: auto;*/
-          position: relative;
-      right: 100px;
-
-      /*width: 50%;*/
-      float: left;
+  margin: auto 50 auto auto;
 
 
 }
 #question-div{
 
-    /*background-color: */limegreen;
-/*    display: block;
-    width: 100px;
-    border-radius: 40px;
-    font-weight: bold;
-    margin: auto;*/
-      position: relative;
-      left: 100px;
-      float: right;
 }
 #answer-div{
 
-    /*background-color: */lavender;
-/*    display: block;
-    width: 100px;
-    border-radius: 40px;
-    font-weight: bold;
-    margin: auto;*/
+    margin: auto;
 }
 
 
@@ -156,14 +128,20 @@ input[type="text"]:focus {
   border-radius: 50px;
   background: #35394a /*transparent*/;
   padding: /*10px 50px*/5px 40px;
-  border: 2px solid #DC6180;
-  color: #DC6180;
+  /*border: 2px solid #DC6180;*/
+  border: none;
+  color: #fff;
   text-transform: uppercase;
   font-size: 11px;
   transition-property: background, color;
   transition-duration: 0.2s;
   cursor: pointer;
 
+
+  background: #5256ad;
+
+
+  margin: 20 auto 50 auto;
 }
 .menu-buttons input:focus {
   box-shadow: none;
@@ -182,8 +160,8 @@ input[type="text"]:focus {
 /* box */
 
 .menuForm {
-  width: 300px;
-  padding: 64px 15px 24px;
+  width: 500px;
+  /*padding: 64px 15px 24px;*/
   margin: 0 auto;
 }
 .menuForm .control {

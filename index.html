@@ -28,14 +28,31 @@
     <!-- CARD -->
     <link rel="stylesheet" type="text/css" href="card.css">
 
+    <!-- BACK TO TOP -->
 
+    <link rel="stylesheet" type="text/css" href="backToTop.css">
+
+
+    <!-- DRAG AND DROP -->
+    <link rel="stylesheet" type="text/css" href="dragAndDrop.css">
 </head>
 
 <body id="body">
 
 
+  <!-- BACK TO TOP BUTTON -->
+
+  <button id="backToTop" class="hide">
+    
+    <i class="fa fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+
+<!-- DRAG AND DROP -->
+
+
 <!-- MODAL AND TOGGLE -->
-  <div id="modal-toggle">
+  <div id="modal-toggle" >
       <!-- MODAL ICON -->
 
   <i id="info" class="fa fa-info-circle" aria-hidden="true" onclick="runModal()" title="How to play"></i>
@@ -66,7 +83,7 @@
     <div id="linkbox-and-questionbox" >
       
       <div id="image-div" id="image-div" class="control block-cube block-input">
-        <input id ="image-input" name = "image link" type ="user" placeholder = "Image Link" autocomplete="off" />
+        <input id ="image-input" name = "image link" type ="user" placeholder = "Image Link" autocomplete="off" onmouseout="linkAndDrag()" />
         <div class="bg-top">
           <div class="bg-inner"></div>
         </div>
@@ -78,7 +95,20 @@
         </div>
       </div>
 
-      <div id="question-div" class="control block-cube block-input">
+        <div class="drag-area" onmouseover="showDelete()" onmouseout="hideDelete()">
+        <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <header>Drag & Drop to Upload File</header>
+        <span>OR</span>
+        <button id="browse" onmouseout="linkAndDrag()">Browse File</button>
+        <button id="delete" class="hide" onclick="resetStuff()">Delete</button>
+        <input id="fileInput" type="file" onclick="preventFileDialog(this)" hidden>
+      </div>
+
+
+
+    </div>
+
+    <div id="question-div" class="control block-cube block-input">
         <input id ="question-input" name = "question" type ="user" placeholder = "Question" autocomplete="off"/>
         <div class="bg-top">
           <div class="bg-inner"></div>
@@ -89,8 +119,6 @@
         <div class="bg">
           <div class="bg-inner"></div>
         </div>
-      </div>
-
     </div>
 
 
@@ -212,6 +240,12 @@
   <!-- game script -->
   <script type="text/javascript" src="game.js">
   </script>
+
+  <!-- back to top -->
+  <script type="text/javascript" src="backToTop.js"></script>
+
+  <!-- DRAG AND DROP -->
+  <script type="text/javascript" src="dragAndDrop.js"></script>
 
 </body>
 

@@ -15,7 +15,7 @@ let topic = document.getElementById("topic-input");
 let container = document.getElementById("container");
 
 // TO RANDOMLY CHOOSE HOW IT WILL SHOW ON GRID
-let gridPosition = new Array("w-4 h-3", "w-3 h-3", "w-2 h-2", "h-3", "h-4","w-3 h-4"/*, "w-3 h-3", "h-2", "w-4 h-1", "h-2", "w-3 h-4", "w-1 h-1"*/);
+let gridPosition = new Array("w-4 h-4", "w-4 h-3", "w-3 h-4", "w-3 h-3", "w-2 h-3", "w-3 h-2", "w-2 h-2"/*, "w-3 h-3", "h-2", "w-4 h-1", "h-2", "w-3 h-4", "w-1 h-1"*/);
 
 // STORE LINKS AND ANSWERS
 let linksArray = new Array();
@@ -27,10 +27,6 @@ let question = 1;
 let correct = 0;
 let wrong = 0;
 
-// IF WE END UP CHANGING H3 AND DIV IN MENU DIV THEN CAHNGE LAST .CHILDREN IN PLAYIT
-// AND CHNAGE FORIN EDIT ITEM
-
-
 // https://source.unsplash.com/1600x900/?travel
 
 menuForm.addEventListener("submit", (e)=>{
@@ -39,14 +35,50 @@ menuForm.addEventListener("submit", (e)=>{
 
 	add(e);
 
+
 })
+
+
+// link and drag
+
+function linkAndDrag(){
+
+	let choiceOfInput = "";
+
+	let linkTextBox = document.getElementById("image-input");
+
+	let dropArea = document.querySelector(".drag-area");
+	let browse = document.getElementById("browse");
+
+	// checks if user drag and droped image or entered image link
+
+	if( linkTextBox.value.length > 0 && dropArea.children.length < 7 ){ // entered image link then disbaled drag and drop
+
+		browse.disabled = "true"
+		choiceOfInput = "link";
+
+	}else if( linkTextBox.value.length <= 0 && dropArea.children.length > 6 ){
+
+		linkTextBox.disabled = "true"
+		choiceOfInput = "file"
+
+	}else if( linkTextBox.value.length <= 0 && dropArea.children.length < 7 ){
+
+		linkTextBox.removeAttribute("disabled");
+		browse.removeAttribute("disabled");
+	}
+
+	return choiceOfInput;
+}
 
 // VERIFY INPUTS
 function verify(e){
 
+
 	let linkTextBox = document.getElementById("image-input");
 	let answerTextBox = document.getElementById("answer-input");
 	let questionTextBox = document.getElementById("question-input");
+
 
 
 	if( ( linkTextBox.value && questionTextBox.value && answerTextBox.value ) || // all field are filled
@@ -80,23 +112,37 @@ function verify(e){
 function add(e){
 
 	let linkTextBox = e.target.children[1].children[0].children[0];
-	let questionTextBox = e.target.children[1].children[1].children[0];
-	let answerTextBox = e.target.children[2].children[0];
+	let questionTextBox = e.target.children[2].children[0];
+	let answerTextBox = e.target.children[3].children[0];
+
 	let content;
 
 
-	if( ( linkTextBox.value.trim() || questionTextBox.value.trim() ) && answerTextBox.value.trim() ){
+	let choiceOfInput = linkAndDrag();
+
+	if( ( ( choiceOfInput == "link" || choiceOfInput == "file" ) || questionTextBox.value.trim() ) &&
+	    answerTextBox.value.trim() ){ // if either ( ( link or file ) OR queston ) AND ( answer )
 
 		let enterImg = "" // if a link is given
 		let enterDiv = "" // if no link is given
 
-		if( linkTextBox.value.trim() == "" ){ // give it a div as a place holder
+		if( choiceOfInput === "" && dropArea.children.length < 7  ){ // give it a div as a place holder if link text box is empty or file not dragged and dropped
 
 			enterDiv = `<div class="gradient"></div>`
 		
 		}else{
 
-			 enterImg = `<img src="${linkTextBox.value.trim()}" alt="${answerTextBox.value.trim()}" />`
+			let imageFromDragAndDropSource = "";
+
+
+			if( choiceOfInput === "file" ){ // if choice of image input was from choosing a file
+				
+				imageFromDragAndDropSource = document.getElementById("image").getAttribute("src");
+
+			}
+			let imgSource = ( choiceOfInput == "link"? linkTextBox.value.trim() : imageFromDragAndDropSource )
+
+			 enterImg = `<img src="${imgSource}" alt="${answerTextBox.value.trim()}" />`
 
 		}
 
@@ -107,7 +153,7 @@ function add(e){
   						<div class="gallery-item">
     						<div class="image">
 
-    						${linkTextBox.value.trim() === ""? enterDiv:enterImg}
+    						${choiceOfInput === ""? enterDiv:enterImg}
 
     						</div>
     						<div class="menu">
@@ -130,6 +176,9 @@ function add(e){
 		questionTextBox.value = "";
 
 		linkTextBox.focus();
+
+const dropArea = document.querySelector(".drag-area")
+		resetStuff();
 
 	}else if( ( linkTextBox.value.trim() || questionTextBox.value.trim() ) && answerTextBox.value === "" ){ // enetered nothing for answer box
 
@@ -217,7 +266,7 @@ function deleteItem(e){
 
 function playIt(){
 
-	if( container.children.length > 0/*3*/  ){ // make sure we have at least 4 questions
+	if( container.children.length >= 1/*3*/  ){ // make sure we have at least 4 questions
 
 		if( topic.value ){ // has to have a topic added
 
@@ -237,7 +286,7 @@ function playIt(){
 
 				question = container.children[x].children[0].children[1].children[0].innerHTML;
 
-				linksArray[x] = link;
+				linksArray[x] = ( link == null? "" : link ); // replace the link with a string
 
 				choicesArray[x] = choice;
 
@@ -340,27 +389,29 @@ function loadChallenge(chalNum){
    // SETS THE IMG ALT AND SRC IF WE NEED TO
    picAlt = choicesArray[chalNum-1];
 
- 	if( linksArray[ chalNum - 1 ] != null ){ // only display image if user gave one
+ 	if( linksArray[ chalNum - 1 ] != "" /*&& linksArray[ chalNum - 1 ]*/ ){ // only display image if user gave one
 
    	img.style.backgroundImage = `url(${linksArray[chalNum-1]})`;
-   	img.setAttribute("alt", picAlt)
+   	img.setAttribute("alt", picAlt);
 
+   }else{
+
+   	img.style.backgroundImage = `url("")`;
+   	img.setAttribute("alt", picAlt);
    }
-
 
 
    if( questionArray[ chalNum-1 ] != "" ){ // only display question if user gave one
 
-   	img.setAttribute("alt", picAlt)
-   	img.style.backgroundImage = `url("")`;
+		img.setAttribute("alt", picAlt)
 
    	gameH3.className ="statement";
    	gameH3.innerHTML = questionArray[ chalNum-1 ];
 
-   }else{ // if not then don't display it
+   }else{
 
+		gameH3.innerHTML = "";
 
-   	gameH3.innerHTML = "";
    }
 
 
@@ -595,9 +646,7 @@ function removeDuplicates(newArray, fillButtons, value){
 }
 
 
-
-/*    */
-
+// DARK MODE
 
 let toggleCount = 0;
 function darkMode(){ // DARK BACKGROUND
@@ -609,17 +658,6 @@ function darkMode(){ // DARK BACKGROUND
    let total = document.getElementById("total"); 
    let img = document.getElementsByTagName("IMG");
    let toggle = document.getElementById("toggle");
-/*   toggleCount +=1;
-   body.classList.toggle("darkMode");
-   body.classList.toggle("white")
-   // title.classList.toggle("white");
-   total.classList.toggle("totalDark");
-
-
-   for(x=1; x<=4; x+=1){
-
-      img[x-1].classList.toggle("darkModePicBoxShadow")
-   }*/
 
       if( toggleCount%2 === 0 ){
 
@@ -647,3 +685,4 @@ function spin(){
    // }
 }
 spin();
+
