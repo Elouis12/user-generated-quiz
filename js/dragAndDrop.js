@@ -25,7 +25,7 @@ input.addEventListener("change", function(){
   //getting user select file and selects first file if user selects more than one
   file = this.files[0];
   dropArea.classList.add("active");
-  // showFile(); //calling function
+  showFile(); //calling function
 });
 
 
@@ -147,8 +147,10 @@ function hideDelete(){
 
 function resetStuff(){
 
-  dropArea.children[6].remove(); // remove the image tag
+  if( dropArea.children.length > 6 ){ // attempting to redrop another image then remove the previous one before you can
 
+    dropArea.children[6].remove();
+  }
   for(x = 0; x < dropArea.children.length; x+=1){
 
       dropArea.children[x].classList.remove("hide");

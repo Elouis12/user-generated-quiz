@@ -267,7 +267,7 @@ function deleteItem(e){
 
 function playIt(){
 
-	if( container.children.length >= 4  ){ // make sure we have at least 4 questions
+	if( container.children.length >= 4 ){ // make sure we have at least 4 questions
 
 		if( topic.value ){ // has to have a topic added
 
@@ -303,6 +303,9 @@ function playIt(){
 			total.className = "total"; // show tracker
 			info.style.visibility = "hidden"	
 
+					resetStuff();
+
+
 			shuffle3(linksArray, choicesArray, questionArray)
 
 			loadChallenge(challengeCount++);
@@ -329,6 +332,11 @@ function clearAll(){ // clears all content from menu
 
 			container.children[0].remove();
 		}
+
+		// reset arrays
+		linksArray = new Array();
+		choicesArray = new Array();
+		questionArray = new Array();
 
 	}
 
@@ -715,3 +723,5 @@ spin();
 
 // disables enter key( it brought up file dialog )
 window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+
+
