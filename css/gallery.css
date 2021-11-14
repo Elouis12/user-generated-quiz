@@ -72,6 +72,20 @@
 }
 
 
+.gallery-buttons{
+
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  background: #fff;
+  color: #5256ad;
+  border-radius: 5px;
+  margin: auto;
+  cursor: pointer;
+  margin-top: 3px;
+
+}
 
 
 .w-1{

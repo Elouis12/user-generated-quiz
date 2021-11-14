@@ -47,7 +47,6 @@ function linkAndDrag(){
 
 	let linkTextBox = document.getElementById("image-input");
 
-	let dropArea = document.querySelector(".drag-area");
 	let browse = document.getElementById("browse");
 
 	// checks if user drag and droped image or entered image link
@@ -177,7 +176,6 @@ function add(e){
 
 		linkTextBox.focus();
 
-const dropArea = document.querySelector(".drag-area")
 		resetStuff();
 
 	}else if( ( linkTextBox.value.trim() || questionTextBox.value.trim() ) && answerTextBox.value === "" ){ // enetered nothing for answer box
@@ -249,7 +247,10 @@ function editItem(e){
 			return;
 		}
 
-		editQuestion.innerHTML = ( ( change.trim()[ change.trim().length -1 ] == "?" ) ?  change.trim() : change.trim() + "?"  ); // adds question mark if none is added
+		// editQuestion.innerHTML = ( ( change.trim()[ change.trim().length -1 ] == "?" ) ?  change.trim() : change.trim() + "?"  ); // adds question mark if none is added
+		
+		editQuestion.innerHTML = ( ( change.trim() == ""  && change.length <= 0) ?  change.trim() : change.trim() + "?"  ); // adds question mark if none is added
+
 		editQuestion.setAttribute("alt", change);
 	}
 
@@ -266,7 +267,7 @@ function deleteItem(e){
 
 function playIt(){
 
-	if( container.children.length >= 1/*3*/  ){ // make sure we have at least 4 questions
+	if( container.children.length >= 4  ){ // make sure we have at least 4 questions
 
 		if( topic.value ){ // has to have a topic added
 
@@ -447,6 +448,9 @@ function next(){
 			value: "End",
 		})
 		nextButton.setAttribute("onclick", "restart()")
+		nextButton.disabled = true;
+		nextButton.className = "endButton";
+		nextButton.style.cursor = "not-allowed";
 		restartButton.className = "hide"// hide restart button
 
 	}
@@ -458,7 +462,7 @@ function next(){
 	}else if( clicks == 0 ){ // if the user has not clicked a choice
 
 
-		if( confirm("are you sure next") ){
+		if( confirm("Are You Sure You Would Like To Go To The Next?") ){
 
 			loadChallenge(challengeCount++); // load the next challenge
 
@@ -476,7 +480,7 @@ function showAnswer(){
 
 	if( clicks === 0 ){ // opting to view correct choice( will mark wrong )
 
-		if( confirm("are you sure?") ){ // if the user has not clicked yet and wants to see it
+		if( confirm("Are You Sure You Want To Show?") ){ // if the user has not clicked yet and wants to see it
 
 			for( x = 1; x < 5; x+=1 ){ // goes through button to select / show correct one
 
@@ -485,6 +489,8 @@ function showAnswer(){
 				if( button.getAttribute("value") ===  ( img.getAttribute("alt") || img.getAttribute("value") ) ){
 
 					button.className = "correct";
+
+
 
                total.innerHTML = ` <br/> ${correct}/${question} <br/> ${percent(correct/question)}%`
                wrong+=1;
@@ -514,9 +520,19 @@ function showAnswer(){
 
          }
       }
-      clicks = 1 
+
+
    } 
-	
+
+	if( ( correct + wrong ) == question ){ // allow to end
+
+		nextButton.className = "endButtonNormal";
+		nextButton.disabled = false;
+		nextButton.style.cursor = "pointer";
+
+	}
+
+      clicks = 1 	
 
 }
 
@@ -544,6 +560,14 @@ function chooseCorrect(e){
          total.innerHTML = ` <br/> ${correct}/${question} <br/> ${percent(correct/question)}%`
 
 		}
+
+	}
+
+	if( ( correct + wrong ) == question ){ // allow to end
+
+		nextButton.className = "endButtonNormal";
+		nextButton.disabled = false;
+		nextButton.style.cursor = "pointer";
 
 	}
 	
@@ -686,3 +710,8 @@ function spin(){
 }
 spin();
 
+
+
+
+// disables enter key( it brought up file dialog )
+window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);

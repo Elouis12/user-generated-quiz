@@ -107,6 +107,9 @@ function resetStuff(){
   }
 
     deleteButton.className = "hide";
+    dropArea.classList.remove("active");
+    dragText.textContent = "Drag & Drop to Upload File";
+
 
     linkTextBox.removeAttribute("disabled");
     browse.removeAttribute("disabled");
