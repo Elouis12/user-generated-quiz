@@ -25,7 +25,7 @@ input.addEventListener("change", function(){
   //getting user select file and selects first file if user selects more than one
   file = this.files[0];
   dropArea.classList.add("active");
-  // showFile(); //calling function
+  showFile(); //calling function
 });
 
 
@@ -51,63 +51,21 @@ dropArea.addEventListener("drop", (event)=>{
     dropArea.children[6].remove();
   }
 
-  var img = event.dataTransfer.getData("text/html");
-
-
   file = event.dataTransfer.files[0];
-
-
-if( img.slice(0,4) === "<img" ){ // if user dragged an image from online
-
-  drop(event);
-
-}else{ // if user dragged an image from computer
-  
   showFile();
-
-}
-
-
 });
 
-
-function drop(evt) {
-    evt.stopPropagation();
-    evt.preventDefault(); 
-    var imageUrl = evt.dataTransfer.getData('text/html');
-
-    var rex = /src="?([^"\s]+)"?\s*/;
-    var url, res;
-
-    url = rex.exec(imageUrl);
-
-    let imgTag = `<img id="image" src="${url[1]}" alt="">`; //creats an img tag and passes the user selected file source inside src attribute
-    let deleteButtonTag = `<button id="delete" class="hide" onclick="resetStuff()">Delete</button>`
-      
-      for(x = 0; x < dropArea.children.length; x+=1){
-
-          dropArea.children[x].className = "hide";
-
-      }
-      
-      dropArea.insertAdjacentHTML("beforeend", imgTag); // adds image tag that wil be displayed once user drops image
-   
-}
-
 function showFile(){
-
   let fileType = file.type; //getting selected file type
-  
   let validExtensions = ["image/jpeg", "image/jpg", "image/png"]; //adding some valid image extensions in array
-  
-  if( validExtensions.includes(fileType) ){ //if user selected file is an image file
+  if(validExtensions.includes(fileType)){ //if user selected file is an image file
     let fileReader = new FileReader(); //creats a new FileReader object
-    fileReader.onloadend = ()=>{
+    fileReader.onload = ()=>{
       let fileURL = fileReader.result; //passing user file source in fileURL variable
-      
       let imgTag = `<img id="image" src="${fileURL}" alt="">`; //creats an img tag and passes the user selected file source inside src attribute
       let deleteButtonTag = `<button id="delete" class="hide" onclick="resetStuff()">Delete</button>`
       
+
 
       for(x = 0; x < dropArea.children.length; x+=1){
 
@@ -118,7 +76,6 @@ function showFile(){
       dropArea.insertAdjacentHTML("beforeend", imgTag); // adds image tag that wil be displayed once user drops image
     }
     fileReader.readAsDataURL(file);
-    
   }else{
     alert("This is not an Image File!");
     dropArea.classList.remove("active");
