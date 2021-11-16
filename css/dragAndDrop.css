@@ -13,7 +13,7 @@ body{
   background: #5256ad;*/
 }
 .drag-area{
-  /*border: 2px dashed #fff;*/
+  border: 2px dashed #fff;
   height: 210px;
   width: 300px;
   border-radius: 5px;
@@ -33,7 +33,7 @@ body{
 
 }
 .drag-area.active{
-  /*border: 2px solid #fff;*/
+  border: 0px solid #fff;
 }
 .drag-area .icon{
   font-size: 20px;
