@@ -267,7 +267,7 @@ function deleteItem(e){
 
 function playIt(){
 
-	if( container.children.length >= 1 ){ // make sure we have at least 4 questions
+	if( container.children.length >= 4 ){ // make sure we have at least 4 questions
 
 		if( topic.value ){ // has to have a topic added
 
