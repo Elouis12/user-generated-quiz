@@ -55,7 +55,7 @@ input:checked + .slider:before {
 
 .darkmode{
 
-  background-color: rgba(22, 22, 51, 0.9);
+  background-color: /*rgba(22, 22, 51, 0.9)*/#020024;
 }
 
 .info-white{
