@@ -1,0 +1,242 @@
+body {
+  /*width: 100vw;*/
+  /*height: 100vh;*/
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*justify-content: center;*/
+  /*background:url("background.jpg");*/
+  /*overflow: hidden;*/
+}
+.card {
+  transform: scale(1.15);
+  display: grid;
+  grid-template-columns: 300px;
+  grid-template-rows: 210px 210px 80px;
+  grid-template-areas: "image" "text" "stats";
+
+  border-radius: 18px;
+  background: white;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+  font-family: roboto;
+  text-align: center;
+  
+
+  transition: 0.5s ease;
+  cursor: pointer;
+  margin:30px;
+}
+.card-image {
+  grid-area: image;
+  background: url("");
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-size: cover;
+}
+
+.card-text {
+  grid-area: text;
+  margin: 25px;
+}
+.card-text .title {
+  color: rgb(255, 7, 110);
+  font-size:13px;
+}
+.card-text p {
+  color: grey;
+  font-size:15px;
+  font-weight: 300;
+}
+.card-text h2 {
+  margin-top:0px;
+  font-size:28px;
+}
+.card-stats {
+  /*grid-area: stats; */
+  /*display: grid;*/
+  /*grid-template-columns: 1fr 1fr 1fr;*/
+  /*grid-template-rows: 1fr;*/
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background: rgb(255, 7, 110);
+}
+.card-stats .stat {
+  padding:10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+}
+.card-stats .border {
+  border-left: 1px solid rgb(172, 26, 87);
+  border-right: 1px solid rgb(172, 26, 87);
+}
+.card-stats .value{
+  font-size:22px;
+  font-weight: 500;
+}
+.card-stats .value sup{
+  font-size:12px;
+}
+.card-stats .type{
+  font-size:11px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+.card:hover {
+  transform: scale(1.22);
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+  cursor: default;
+}
+
+.card:hover #circle {
+  transform: scale(5.3);
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+  cursor: default;
+}
+
+
+#choiceButtons > input{
+
+    background-color: rgba(70,70,90,0.9);
+    color: lightblue;
+    border: none;
+    border-radius: 5px;
+    font-size: 12pt;
+    margin: auto;
+    cursor: pointer;
+}
+
+
+.buttons{
+
+    margin-top: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 10pt;
+    cursor: pointer;
+      background-color: /*rgba(70,70,90,0.9)*/ /*rgba(22, 22, 51, 0.9)*/#020024;
+  color: rgba(255, 90, 180);
+
+
+}
+
+
+#choiceButtons{
+
+  margin-top: 10px;
+}
+
+
+#challengeDiv{
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+
+#circle{
+
+  position: relative;
+  /*top: 10px;*/
+  left: 120px;
+  font-size: 18pt;
+  text-align: center;
+  z-index: 1;
+  transform: scale(0.7);
+}
+.total{
+
+  border: 2px solid rgba(255, 90, 180);
+  background-color: rgba(255, 255, 255, 0.9);
+  color:  rgba(22, 22, 51, 0.9);
+  border-radius: 100%;
+  max-height: 130px;
+  max-width: 130px;
+  min-height: 130px;
+  min-width: 130px;
+  /*display: inline-block;*/
+  /*position: relative;*/
+  /*left: 100px;*/
+  top: 140px;
+  float: left;
+  text-align: center;
+  margin: auto;
+}
+
+
+#tracker{
+
+
+}
+
+/*.hide{
+
+  display: none;
+}*/
+
+/*
+#darkmode{
+
+  border-radius: 100%;
+  max-height: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  min-width: 50px;
+  text-align:center;
+  border:none;
+  background-color: rgba(22, 22, 51, 0.9);
+  color: rgba(255, 90, 180);
+  cursor: pointer;
+}
+*/
+
+.correct{
+
+  background: rgba(57,255,20, 0.9);
+  margin-top: 15px;
+  /*border: none;*/
+  border-radius: 5px;
+  font-size: 10pt;
+  cursor: pointer;
+  border: solid black 1px;
+}
+
+.wrong{
+
+  background-color: /*rgba(255,110,199, 0.9)*/ rgba(255,0,140, 0.9);
+  margin-top: 15px;
+  /*border: none;*/
+  border-radius: 5px;
+  font-size: 10pt;
+  cursor: pointer;
+  border: solid black 1px;
+
+}
+
+.endButton{
+
+  opacity: 0.5;
+  background-color: rgba(70,70,90,0.9);
+  color: lightblue;
+  border: none;
+  border-radius: 5px;
+  font-size: 12pt;
+  margin: auto;
+  cursor: not-allowed;
+}
+
+
+.endButtonNormal{
+
+    background-color: rgba(70,70,90,0.9);
+    color: lightblue;
+    border: none;
+    border-radius: 5px;
+    font-size: 12pt;
+    margin: auto;
+    cursor: pointer;
+
+}
