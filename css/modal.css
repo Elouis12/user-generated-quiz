@@ -106,7 +106,8 @@ font-weight: bold;
 }
 #imageModal{
 
-    background-color: palevioletred;
+    background-color: /*palevioletred*/rgba(227,126,202,255)
+;
     display: inline-block;
     width: 100px;
     border-radius: 40px;
@@ -125,7 +126,8 @@ font-weight: bold;
 
 #answerModal{
 
-    background-color: lavender;
+    background-color: /*lavender*/rgba(245,123,40,255)
+;
     display: inline-block;
     width: 100px;
     border-radius: 40px;

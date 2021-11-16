@@ -21,7 +21,7 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: #5256ad;
+  background: /*#5256ad*/rgb(129, 120, 215);
 
   position: relative;
   border-top-left-radius: 15px;
@@ -57,7 +57,7 @@ body{
   border: none;
   outline: none;
   background: #fff;
-  color: #5256ad;
+  color: /*#5256ad*/rgb(129, 120, 215);
   border-radius: 5px;
   cursor: pointer;
 }
@@ -75,7 +75,7 @@ body{
   border: none;
   outline: none;
   background: #fff;
-  color: #5256ad;
+  color: /*#5256ad*/rgb(129, 120, 215);
   border-radius: 5px;
   margin: auto;
   cursor: pointer;
@@ -94,7 +94,7 @@ body{
   font-weight: 500;
   border: none;
   outline: none;
-  color: #5256ad;
+  color: /*#5256ad*/rgb(129, 120, 215);
   border-radius: 5px;
   cursor: pointer;
   display: none;
