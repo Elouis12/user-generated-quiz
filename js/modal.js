@@ -1,3 +1,5 @@
+/*design is inspired and sourced by Jonas Sandstedt */
+
 // Declare the animation container and parameter to be used in the animation
 var animContainer = document.getElementById('bodymovin');
 // The animation data exported from Adobe After Effects

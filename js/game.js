@@ -449,7 +449,7 @@ function next(){
 
 	let nextButton = document.getElementById("nextButton");
 
-	if( challengeCount == linksArray.length ){ // at the last one
+	if( (challengeCount-1) == linksArray.length || ( correct + wrong ) == question ){ // at the last one
 
 		Object.assign( nextButton, {
 
@@ -472,6 +472,7 @@ function next(){
 
 		if( confirm("Are You Sure You Would Like To Go To The Next?") ){
 
+			wrong+=1;
 			loadChallenge(challengeCount++); // load the next challenge
 
 		}

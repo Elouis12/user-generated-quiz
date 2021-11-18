@@ -1,3 +1,5 @@
+/*design is inspired and sourced by https://dev.to/codingnepal/drag-drop-or-browse-file-upload-feature-using-html-css-javascript-5dii */
+
 const dropArea = document.querySelector(".drag-area"),
 dragText = dropArea.querySelector("header"),
 button = dropArea.querySelector("button"),
