@@ -351,7 +351,6 @@ let copyChoicesArray = new Array();
 // LOADS THE CHALLENGES ONE BY ONE
 function loadChallenge(chalNum){
 
- 
 
    total.innerHTML = ` <br/> ${correct}/${question} <br/> ${percent(correct/( (question <= 1? question : question-1 ) ))}%`    // so it does not 'update' score when loading a new tracker, score is updated until user selects an option
 
@@ -427,6 +426,18 @@ function loadChallenge(chalNum){
 }
 
 
+function allowToEnd(){
+
+		if( challengeCount-1 == linksArray.length ){ // allow to end
+
+		nextButton.className = "endButtonNormal";
+		nextButton.disabled = false;
+		nextButton.style.cursor = "pointer";
+
+	}
+}
+
+
 // RESET BUTTONS
 function resetButtons(){
 
@@ -449,7 +460,7 @@ function next(){
 
 	let nextButton = document.getElementById("nextButton");
 
-	if( (challengeCount-1) == linksArray.length || ( correct + wrong ) == question ){ // at the last one
+	if( challengeCount-1 == linksArray.length-1 ){ // at the last one
 
 		Object.assign( nextButton, {
 
@@ -472,7 +483,6 @@ function next(){
 
 		if( confirm("Are You Sure You Would Like To Go To The Next?") ){
 
-			wrong+=1;
 			loadChallenge(challengeCount++); // load the next challenge
 
 		}
@@ -504,6 +514,8 @@ function showAnswer(){
                total.innerHTML = ` <br/> ${correct}/${question} <br/> ${percent(correct/question)}%`
                wrong+=1;
                clicks = 1;
+
+               // allowToEnd();
                break;
 
 				}
@@ -533,13 +545,7 @@ function showAnswer(){
 
    } 
 
-	if( ( correct + wrong ) == question ){ // allow to end
-
-		nextButton.className = "endButtonNormal";
-		nextButton.disabled = false;
-		nextButton.style.cursor = "pointer";
-
-	}
+allowToEnd();
 
       clicks = 1 	
 
@@ -572,14 +578,7 @@ function chooseCorrect(e){
 
 	}
 
-	if( ( correct + wrong ) == question ){ // allow to end
-
-		nextButton.className = "endButtonNormal";
-		nextButton.disabled = false;
-		nextButton.style.cursor = "pointer";
-
-	}
-	
+allowToEnd();
 	clicks = 1;
 
 }
