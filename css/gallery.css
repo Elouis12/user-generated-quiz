@@ -1,3 +1,5 @@
+/*design is inspired and sourced by FollowAndrew on Youtube */
+
 	body{
     margin:20px;
     padding:0;
@@ -158,3 +160,42 @@
     background: rgb(238,174,202);
     background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
+/*
+.gallery-item{
+
+    overflow: scroll;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    max-height: 100%;
+}*/
+
+
+
+.gallery-item > .menu{
+
+    overflow: scroll;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+.gallery-item > .question{
+
+    overflow: scroll;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/*.question{
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.text{
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+}*/
